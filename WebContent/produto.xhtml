@@ -5,8 +5,13 @@
 	  xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
 <title>Sistema de Notas Fiscais</title>
+<h:outputStylesheet library="css" name="style.css"/>
 </h:head>
 <h:body>
+<div id="cabecalho" >
+<h:graphicImage library="imagens" name="logo-uber.png" id="logoCompany"/>
+</div>
+<div id="conteudo" >
 	<h:form>
 		<h:panelGrid columns="2">
 		<h:outputText value="Nome" for="Nome"/>
@@ -18,11 +23,14 @@
 		<h:outputText value="Preco" for="preco"/>
 		<h:inputText id="preco" value="#{produtoBean.produto.preco}"/>
 		
-		<h:commandButton value="gravar" action="#{produtoBean.grava}" rendered="#{empty produtoBean.produto.id}"/>
-		<h:commandButton value="alterar" action="#{produtoBean.grava}" rendered="#{not empty produtoBean.produto.id}"/>
+		<h:commandButton value="gravar" action="#{produtoBean.grava}" rendered="#{empty produtoBean.produto.id}">
+			<f:ajax execute="@form" render="@form"/>
+		</h:commandButton>
+		<h:commandButton value="alterar" action="#{produtoBean.grava}" rendered="#{not empty produtoBean.produto.id}">
+			<f:ajax execute="@form" render="@form"/>
+		</h:commandButton>
 		
-		
-		<h:dataTable value="#{produtoBean.produtos}" var="produto">
+		<h:dataTable id="dataTable" value="#{produtoBean.produtos}" var="produto" styleClass="dados" rowClasses="impar,par">
 			<h:column>
 				<f:facet name="header">Nome</f:facet>
 				"#{produto.nome}"
@@ -39,14 +47,23 @@
 			</h:column>
 			<h:column>
 				<f:facet name="header">Acoes</f:facet>
-				<h:commandLink value="remover" action="#{produtoBean.remove(produto)}"/>
+				<h:commandLink value="remover" action="#{produtoBean.remove(produto)}">
+				<f:ajax execute="@form" render="@form" immediate="true"/>
+				</h:commandLink>
 				<h:commandLink value="alterar">
-				<f:setPropertyActionListener target="#{produtoBean.produto}" value="produto"/>
+				<f:setPropertyActionListener target="#{produtoBean.produto}" value="#{produto}">
+					<f:ajax execute="@form" render="@form" immediate="true"/>
+				</f:setPropertyActionListener>
 				</h:commandLink>
 			</h:column>
 			
 		</h:dataTable>
 		</h:panelGrid>
 	</h:form>
+	</div>
+	<div id="rodape" >
+	Copyright 2013
+	Todos os Direitos reservados a Silvio
+	</div>
 </h:body>
 </html>
