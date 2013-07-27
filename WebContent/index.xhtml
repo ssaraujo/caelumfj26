@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+<title>Sistema de Notas Fiscais</title>
+</h:head>
+<h:body>
+	<h:form>
+		<h:panelGrid columns="2">
+		<h:outputText value="Nome" for="Nome"/>
+		<h:inputText id="Nome" value="#{produtoBean.produto.nome}"/>
+		
+		<h:outputText value="Descricao" for="descricao"/>
+		<h:inputText id="descricao" value="#{produtoBean.produto.descricao}"/>
+		
+		<h:outputText value="Preco" for="preco"/>
+		<h:inputText id="preco" value="#{produtoBean.produto.preco}"/>
+		
+		<h:commandButton value="gravar" action="#{produtoBean.grava}" rendered="#{empty produtoBean.produto.id}"/>
+		<h:commandButton value="alterar" action="#{produtoBean.grava}" rendered="#{not empty produtoBean.produto.id}"/>
+		
+		
+		<h:dataTable value="#{produtoBean.produtos}" var="produto">
+			<h:column>
+				<f:facet name="header">Nome</f:facet>
+				"#{produto.nome}"
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Descricao</f:facet>
+				"#{produto.descricao}"
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Preco</f:facet>
+				"#{produto.preco}"
+			</h:column>
+			<h:column>
+				<f:facet name="header">Acoes</f:facet>
+				<h:commandLink value="remover" action="#{produtoBean.remove(produto)}"/>
+				<h:commandLink value="alterar">
+				<f:setPropertyActionListener target="#{produtoBean.produto}" value="produto"/>
+				</h:commandLink>
+			</h:column>
+			
+		</h:dataTable>
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>
