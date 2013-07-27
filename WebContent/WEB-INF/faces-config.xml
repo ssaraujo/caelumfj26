@@ -10,6 +10,11 @@
     		br.com.caelum.listener.CicloDeVidaListener
    		</phase-listener>
     </lifecycle>
+    <lifecycle>
+    	<phase-listener>
+    		br.com.caelum.listener.Autorizador
+   		</phase-listener>
+    </lifecycle>
     <navigation-rule>
     <from-view-id>/login.xhtml</from-view-id>
     <navigation-case>
@@ -17,5 +22,11 @@
     <to-view-id>/produto.xhtml</to-view-id>
     </navigation-case>
     </navigation-rule>
-
+	<navigation-rule>
+    <from-view-id>/*</from-view-id>
+    <navigation-case>
+    <from-outcome>login</from-outcome>
+    <to-view-id>/login.xhtml</to-view-id>
+    </navigation-case>
+    </navigation-rule>
 </faces-config>
